@@ -167,14 +167,26 @@ def strToDatetime(dayStr, format):
     '''
     return datetime.strptime(dayStr, format).date()
 
+def timestamp_to_format(timestamp=None, format = '%Y-%m'):
+    '''
+    时间戳转年月
+    '''
+    if timestamp:
+        time_tuple = localtime(timestamp)
+        res = strftime(format, time_tuple)
+    else:
+        res = strftime(format)
+    return res
+
 
 if __name__ == "__main__":
-    print(today())
-    print(today_str())
-    print(date_time())
-    print(date_time_str())
-    print(get_day_of_day(20))
-    print(get_day_of_day(-3))
-    print(get_today_month(-3))
+    # print(today())
+    # print(today_str())
+    # print(date_time())
+    # print(date_time_str())
+    # print(get_day_of_day(20))
+    # print(get_day_of_day(-3))
+    # print(get_today_month(-3))
     # print(get_today_month(3))
-    print(strToDatetime('2018-12-13', '%Y-%m-%d'))
+    # print(strToDatetime('2018-12-13', '%Y-%m-%d'))
+    print('时间戳1234567转换成日期格式为：', timestamp_to_format(1521388800000))

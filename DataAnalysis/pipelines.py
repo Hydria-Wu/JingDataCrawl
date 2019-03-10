@@ -8,6 +8,7 @@
 import MySQLdb
 import MySQLdb.cursors
 from twisted.enterprise import adbapi
+from DataAnalysis.utils.LogUtil import logs
 
 class DataanalysisPipeline(object):
     def process_item(self, item, spider):
@@ -18,6 +19,7 @@ class MysqlPipeline(object):
     def __init__(self, dbPool):
         self.dbPool = dbPool
         self.bool = 0
+        self.logging = logs('jingData')
 
     @classmethod
     def from_settings(cls, settings):
@@ -42,7 +44,7 @@ class MysqlPipeline(object):
     def handle_error(self, failure, item, spider):
         # 处理异步插入的异常
 
-        print(failure)
+        self.logging.error(failure)
 
     def do_insert(self, cursor, item):
         # 所有需要处理的插入
@@ -50,8 +52,12 @@ class MysqlPipeline(object):
         insert_sql, params = item.get_insert_sql()
         bool = cursor.execute(insert_sql, params)
 
-        # 如果是基础信息表，则更新一条数据
-        if bool == 1 and item.__class__.__name__ == 'jingDataBaseItem':
+        self.logging.info(item.__class__.__name__ + ', insert_sql: ' + insert_sql)
+
+        # 如果是项目表，则更新一条数据
+        if (bool == 1 or bool == 2) and item.__class__.__name__ == 'ProjectItem':
             update_sql, params = item.get_update_sql()
             cursor.execute(update_sql, params)
+
+            self.logging.info(item.__class__.__name__ + ', update_sql: ' + insert_sql)
 
