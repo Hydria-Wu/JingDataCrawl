@@ -14,7 +14,7 @@ import requests
 from settings import SQL_DATETIME_FROMAT
 from fake_useragent import UserAgent
 from DataAnalysis.utils.jingDateUtil import GetIp, jingdata_cookie
-from DataAnalysis.utils.LogUtil import get_logger
+from DataAnalysis.utils.LogUtil import logs
 
 conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='root', db='article_spider', charset='utf8')
 cursor = conn.cursor()
@@ -41,7 +41,7 @@ class jingdata_id(object):
     def __init__(self):
         self.account = jingdata_cookie()
         self.get_ip = GetIp()
-        self.logging = get_logger(self.name)
+        self.logging = logs('jingData')
 
     def getCookie(self):
         return self.account.getCookie()
@@ -161,9 +161,6 @@ class jingdata_id(object):
 if __name__ == '__main__':
     jingdata = jingdata_id()
     jingdata.jingdata_id()
-    # account = jingdata_cookie()
-    # for i in range(1, 112):
-    #     account.getCookieAndProxies(i)
 
 
 
