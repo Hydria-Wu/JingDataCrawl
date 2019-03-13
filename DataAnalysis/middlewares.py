@@ -107,17 +107,6 @@ class DataanalysisDownloaderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-
-class RequestsMiddleware(object):
-    def process_request(self, request, spider):
-        proxies = {'http': request.meta['proxy']}
-        headers = {'User-Agent': request.headers['User-Agent']}
-        cookies = request.cookies
-        url = request.url
-        response = requests.get(url=url, cookies=cookies, headers=headers, proxies=proxies)
-
-        return HtmlResponse(url=request.url, body=response.text, encoding='utf-8', request=request)
-
 class RandomUserAgentMiddleware(object):
     def __init__(self, crawler):
         super(RandomUserAgentMiddleware, self).__init__()
