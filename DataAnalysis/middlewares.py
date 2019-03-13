@@ -152,7 +152,6 @@ class RandomCookieMiddleware(object):
 
 
 class JSPageMilldleware(object):
-
     def process_request(self, request, spider):
         spider.browser.get(request.url)
         import time
