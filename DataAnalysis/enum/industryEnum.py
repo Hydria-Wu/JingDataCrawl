@@ -36,4 +36,4 @@ class industry(Enum):
     CONSUME = '消费升级'
     PUB = '公用事业'
     REAL_ESTATE = '地产建筑'
-
+    CHEMICAL = '化工'
