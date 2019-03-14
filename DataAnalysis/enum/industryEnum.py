@@ -37,3 +37,4 @@ class industry(Enum):
     PUB = '公用事业'
     REAL_ESTATE = '地产建筑'
     CHEMICAL = '化工'
+    MANUFACTURING = '生产制造'
