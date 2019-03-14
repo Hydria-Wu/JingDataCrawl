@@ -38,3 +38,4 @@ class industry(Enum):
     REAL_ESTATE = '地产建筑'
     CHEMICAL = '化工'
     MANUFACTURING = '生产制造'
+    PEC = '光电'
