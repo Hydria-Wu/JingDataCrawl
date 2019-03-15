@@ -15,7 +15,7 @@ from DataAnalysis.settings import SQL_DATE_FORMAT, SQL_DATETIME_FROMAT
 from DataAnalysis.utils.LogUtil import logs
 from selenium import webdriver
 
-conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='root', db='article_spider', charset='utf8')
+conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='root', db='data_analysis', charset='utf8')
 cursor = conn.cursor()
 
 class GetIp(object):
@@ -84,7 +84,8 @@ class jingdata_cookie(object):
 
     def __init__(self):
         import random
-        self.user = random.randint(1, 210)
+        self.user = 0
+        # self.user = random.randint(1, 210)
         self.logging = logs('jingData')
 
     def getCookieRandom(self):
@@ -210,6 +211,19 @@ class jingdata_id(object):
         result = cursor.execute(select_sql)
         if result == 1:
             id = cursor.fetchall()[0][0]
+            update_sql = 'UPDATE jingdata_spider SET product_brief=0 where product_id={0}'.format(id)
+            cursor.execute(update_sql, ())
+            conn.commit()
+
+            cursor.execute(
+                """
+                    insert into project(project_id, project_name, project_des, industry, city, year, crawl_time)
+                    VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')
+                """.format(
+                    id, 'a', 'a', 'a', 'a', 'a', datetime.datetime.now().strftime(SQL_DATETIME_FROMAT)
+                )
+            )
+            conn.commit()
             return id
 
     def delete_id(self, id):

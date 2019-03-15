@@ -16,7 +16,7 @@ from fake_useragent import UserAgent
 from DataAnalysis.utils.jingDateUtil import GetIp, jingdata_cookie
 from DataAnalysis.utils.LogUtil import logs
 
-conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='root', db='article_spider', charset='utf8')
+conn = MySQLdb.connect(host='127.0.0.1', user='root', passwd='root', db='data_analysis', charset='utf8')
 cursor = conn.cursor()
 
 
