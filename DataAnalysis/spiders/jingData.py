@@ -141,4 +141,3 @@ class JingdataSpider(scrapy.Spider):
         else:
             return str(num)
 
-
