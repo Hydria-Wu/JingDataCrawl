@@ -14,6 +14,8 @@ BOT_NAME = 'DataAnalysis'
 SPIDER_MODULES = ['DataAnalysis.spiders']
 NEWSPIDER_MODULE = 'DataAnalysis.spiders'
 
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'DataAnalysis (+http://www.yourdomain.com)'
@@ -56,7 +58,6 @@ DOWNLOADER_MIDDLEWARES = {
    'DataAnalysis.middlewares.RandomCookieMiddleware': 2,
    'DataAnalysis.middlewares.RandomUserAgentMiddleware': 3,
    'DataAnalysis.middlewares.RandomProxyMiddleware': 4,
-   'DataAnalysis.middlewares.RequestsMiddleware': 5,
 }
 
 # Enable or disable extensions
@@ -68,6 +69,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+   'scrapy_redis.pipelines.RedisPipeline': 1,
    'DataAnalysis.pipelines.MysqlPipeline': 300,
 }
 
@@ -101,3 +103,5 @@ SQL_DATETIME_FROMAT = '%Y-%m-%d %H:%M:%S'
 SQL_DATE_FORMAT = '%Y-%m-%d'
 
 RANDOM_UA_TYPE = 'random'
+
+REDIS_URL = 'redis://root:@127.0.0.1:6379'
