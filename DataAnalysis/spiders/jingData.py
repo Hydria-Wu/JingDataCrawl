@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2018/9/22 09:01
+# @Time    : 2018/9/22 10:01
 # @Author  : hydria
 # @Site    :
 # @File    : jingData.py
@@ -21,7 +21,7 @@ from DataAnalysis.enum.phaseEnum import phase
 class JingdataSpider(scrapy.Spider):
     name = 'jingData'
     allowed_domains = ['rong.36kr.com']
-    start_urls = ['https://rong.36kr.com/']
+    redis_key = 'jingData:start_urls'
 
 
     def __init__(self):
@@ -67,7 +67,11 @@ class JingdataSpider(scrapy.Spider):
         item_loader.add_value('project_id', data['data']['id'])
         item_loader.add_value('project_name', data['data']['name'])
         item_loader.add_value('project_des', data['data']['brief'])
-        item_loader.add_value('industry', industry[data['data']['industryEnum']].value)
+        try:
+            item_loader.add_value('industry', industry[data['data']['industryEnum']].value)
+        except:
+            self.logging.error('该项目的行业枚举类中没有记录，id: {0}，industryEnum：{1}'.format(id, data['data']['industryEnum']))
+            item_loader.add_value('industry', data['data']['industryEnum'])
         item_loader.add_value('city', data['data']['address1Desc'])
 
         try:
@@ -114,7 +118,11 @@ class JingdataSpider(scrapy.Spider):
             item_loader.add_value('project_id', int(id))
             item_loader.add_value('round_num',  id + self.setStr(i + 1))
             item_loader.add_value('round_year', timestamp_to_format(finance_list[i]['financeDate'] / 1000))
-            item_loader.add_value('financing_round', phase[finance_list[i]['phase']].value)
+            try:
+                item_loader.add_value('financing_round', phase[finance_list[i]['phase']].value)
+            except:
+                self.logging.error('该项目的融资轮次枚举类中没有记录，id: {0}，phaseEnum：{1}'.format(id, finance_list[i]['phase']))
+                item_loader.add_value('financing_round', finance_list[i]['phase'])
             item_loader.add_value('crawl_time', datetime.datetime.now())
 
             article = item_loader.load_item()
