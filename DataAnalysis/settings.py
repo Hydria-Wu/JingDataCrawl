@@ -95,7 +95,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 MYSQL_HOST = '127.0.0.1'
-MYSQL_DBNAME = 'article_spider'
+MYSQL_DBNAME = 'data_analysis'
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = 'root'
 
