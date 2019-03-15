@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2018/10/13 16:33
+# @Time    : 2018/10/03 16:33
 # @Author  : hydria
 # @Site    : 
 # @File    : LogUtil.py
