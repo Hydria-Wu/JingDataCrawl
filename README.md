@@ -1,5 +1,5 @@
-# jingdata
-jingdata是鲸准的抓取工具，基于Scrapy框架以Python编写。
+# JingDataCrawl
+JingDataCrawl是鲸准的抓取工具，基于Scrapy框架以Python编写。
 
 ### 需要注意
 ###### 1.
