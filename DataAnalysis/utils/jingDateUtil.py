@@ -182,7 +182,7 @@ class jingdata_cookie(object):
 
         # 输入用户名和密码，并点击登录
         browser.find_element_by_css_selector('input[name=username]').send_keys(phone)
-        browser.find_element_by_css_selector('input[name=password]').send_keys('20190124')
+        browser.find_element_by_css_selector('input[name=password]').send_keys('')
         browser.find_element_by_css_selector('button[type=submit]').click()
 
         cookie = {}
