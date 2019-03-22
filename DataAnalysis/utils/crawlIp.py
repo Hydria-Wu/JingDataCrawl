@@ -20,7 +20,7 @@ def crawl_pro_ips():
     # 爬取西瓜代理的付费ip（吐槽一句，不是很稳定，建议用其他的代理 =，=）
 
     # tid是付费获取的
-    tid = '556611573747003'
+    tid = ''
     url = 'http://api3.xiguadaili.com/ip/?tid={}&num=1000&category=2&delay=1&protocol=http'.format(tid)
     response = requests.get(url=url, headers=headers)
 
